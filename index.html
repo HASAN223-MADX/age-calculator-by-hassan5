@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حساب العمر</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #ageResult {
+            font-size: 20px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>حاسب العمر</h1>
+        <label for="birthDate">تاريخ الميلاد:</label>
+        <input type="date" id="birthDate">
+        <button onclick="calculateAge()">احسب العمر</button>
+        <p id="ageResult">عمرك هو: </p>
+    </div>
+
+    <script>
+        function calculateAge() {
+            const birthDate = document.getElementById("birthDate").value;
+            if (!birthDate) {
+                alert("يرجى إدخال تاريخ الميلاد!");
+                return;
+            }
+
+            const birthDateObj = new Date(birthDate);
+            const currentDate = new Date();
+
+            let age = currentDate.getFullYear() - birthDateObj.getFullYear();
+            const monthDifference = currentDate.getMonth() - birthDateObj.getMonth();
+
+            // إذا كان الشهر الحالي قبل الشهر الذي ولد فيه الشخص، ينقص 1 من العمر
+            if (monthDifference < 0 || (monthDifference === 0 && currentDate.getDate() < birthDateObj.getDate())) {
+                age--;
+            }
+
+            document.getElementById("ageResult").innerText = "عمرك هو: " + age + " سنة";
+        }
+    </script>
+</body>
+</html>
